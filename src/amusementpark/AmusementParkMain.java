@@ -11,9 +11,6 @@ public class AmusementParkMain {
 		// Create Scanner object to read input from the user
 		Scanner sc = new Scanner(System.in);
 
-		// Receive input from the user for height
-		System.out.println("Enter your height in cm");
-		amusementPark.height = sc.nextInt();
 
 		// Check height eligibility
 		amusementPark.checkHeightEligibility();
