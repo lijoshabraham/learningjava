@@ -6,7 +6,7 @@ public class UserLogin {
 
 	String userId = "pivotAdmin";
 	String password = "Admin123";
-	int MaxAttempts = 3;
+	int MaxAttempts = 3;;
 
 	// create a method to check user login credentials
 	void loginCheck() {
@@ -24,10 +24,12 @@ public class UserLogin {
 				System.out.println("You are logged in to the application");
 				return;
 			} else {
-				System.out.println("Incorrect User id or password.Try again");
+				int remainingAttempts = (MaxAttempts - (attempts + 1));
+				if(remainingAttempts>0)
+				System.out.println("Incorrect User id or password.Try again " + remainingAttempts +" attempts left");
 			}
 		}
-		System.out.println("Account locked");
+		System.out.println("Account locked. 0 attempt left");
 
 	}
 }
