@@ -33,17 +33,43 @@ public class ProductSelector {
 			if (brandIndex != -1) {
 
 				System.out.println("\nAvailable " + brand + " products are: ");
+
 				for (int j = 0; j < products[brandIndex].length; j++) {
 					String product = products[brandIndex][j];
 					System.out.println(product);
 				}
 
+				selectProduct(brand, products[brandIndex]);
 				return;
+
 			} else {
 				System.out.println("\nBrand " + brand + " not found. Please enter Samsung, Google, or Apple.\n");
 			}
+
 		} while (true);
 
 	}
 
+	void selectProduct(String brand, String[] products) {
+
+		do {
+			System.out.print("\nEnter the name of " + brand + " product: ");
+			String selectedProduct = sc.nextLine();
+
+			if (selectedProduct.isEmpty()) {
+				System.out.println("Please enter a valid product name.");
+				continue;
+			}
+
+			for (int i = 0; i < products.length; i++) {
+				String product = products[i];
+				if (selectedProduct.equalsIgnoreCase(product)) {
+					System.out.println("\nSelected " + brand + " product is: " + product);
+					return;
+				}
+			}
+
+			System.out.println("\nProduct not available in " + brand + ". Please select a product from the list.");
+		} while (true);
+	}
 }
