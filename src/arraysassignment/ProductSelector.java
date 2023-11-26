@@ -6,10 +6,14 @@ public class ProductSelector {
 
 	Scanner sc = new Scanner(System.in);
 
-	String[] brandNames = { "Samsung", "Google", "Apple" };
-	String[][] products = { { "S20", "S21", "Flip3", "Fold3" },
-			{ "Google Pixel 6", "Google Pixel 6 Pro", "Google Pixel Pro", "Google Pixel 5" },
-			{ "IPhone12", "IPhone SE", "IPhone 15", "IPhone 13" } };
+    String[][] categoryAndProducts = {
+            {"Samsung", "S20", "S21", "Flip3", "Fold3"},
+            {"Google", "Google Pixel 6", "Google Pixel 6 Pro", "Google Pixel Pro", "Google Pixel 5"},
+            {"Apple", "IPhone12", "IPhone SE", "IPhone 15", "IPhone 13"}
+        };
+    
+    String selectedBrand;
+    String[] selectedProducts;
 
 	void displayProducts() {
 		do {
@@ -23,23 +27,25 @@ public class ProductSelector {
 				continue;
 			}
 
-			for (int i = 0; i < brandNames.length; i++) {
-				if (brandNames[i].equalsIgnoreCase(brand.trim())) {
+			for (int i = 0; i < categoryAndProducts.length; i++) {
+				
+				if (categoryAndProducts[i][0].equalsIgnoreCase(brand.trim())) {
 					brandIndex = i;
 					break;
 				}
 			}
 
 			if (brandIndex != -1) {
-
+				selectedBrand = brand;
+				selectedProducts =  categoryAndProducts[brandIndex];
 				System.out.println("\nAvailable " + brand + " products are: ");
 
-				for (int j = 0; j < products[brandIndex].length; j++) {
-					String product = products[brandIndex][j];
+				for (int j = 1; j < categoryAndProducts[brandIndex].length; j++) {
+					String product = categoryAndProducts[brandIndex][j];
 					System.out.println(product);
 				}
 
-				selectProduct(brand, products[brandIndex]);
+				selectProduct();
 				return;
 
 			} else {
@@ -50,10 +56,10 @@ public class ProductSelector {
 
 	}
 
-	void selectProduct(String brand, String[] products) {
+	void selectProduct() {
 
 		do {
-			System.out.print("\nEnter the name of " + brand + " product: ");
+			System.out.print("\nEnter the name of " + selectedBrand + " product: ");
 			String selectedProduct = sc.nextLine();
 
 			if (selectedProduct.isEmpty()) {
@@ -61,15 +67,15 @@ public class ProductSelector {
 				continue;
 			}
 
-			for (int i = 0; i < products.length; i++) {
-				String product = products[i];
+			for (int i = 0; i < selectedProducts.length; i++) {
+				String product = selectedProducts[i];
 				if (selectedProduct.equalsIgnoreCase(product)) {
-					System.out.println("\nSelected " + brand + " product is: " + product);
+					System.out.println("\nSelected " + selectedBrand + " product is: " + product);
 					return;
 				}
 			}
 
-			System.out.println("\nProduct not available in " + brand + ". Please select a product from the list.");
+			System.out.println("\nProduct not available in " + selectedBrand + ". Please select a product from the list.");
 		} while (true);
 	}
 }
