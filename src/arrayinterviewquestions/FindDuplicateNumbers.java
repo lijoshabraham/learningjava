@@ -22,12 +22,24 @@ public class FindDuplicateNumbers {
 
 	void findAndPrintDuplicates() {
 		System.out.println("\nRepeated numbers in the array:");
-		for (int i = 0; i < arrayElements.length - 1; i++) {
-			for (int j = i + 1; j < arrayElements.length; j++) {
-				if (arrayElements[i] == arrayElements[j]) {
-					System.out.println(arrayElements[i]);
-				}
-			}
-		}
-	}
+
+        for (int i = 0; i < arrayElements.length - 1; i++) {
+            if (arrayElements[i] != -1) {
+                int count = 1;
+
+                for (int j = i + 1; j < arrayElements.length; j++) {
+                    if (arrayElements[i] == arrayElements[j]) {
+                        count++;
+                        arrayElements[j] = -1;
+                    }
+                }
+
+                if (count > 1) {
+                    System.out.println(arrayElements[i] + " repeated " + count + " times");
+                }
+            }
+        }
+    }
 }
+
+
