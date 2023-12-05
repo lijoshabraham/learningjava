@@ -1,29 +1,12 @@
 package arrayinterviewquestions;
 
-import java.util.Scanner;
-
 public class DescendingOrderArrayMain {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+		DescendingOrderArray descendingOrderArray = new DescendingOrderArray();
 
-        System.out.println("Enter the array length");
-        int arrayLength = sc.nextInt();
+		descendingOrderArray.userInput();
 
-        System.out.println("Enter array elements");
-        int[] arrayElements = new int[arrayLength];
-        for (int i = 0; i < arrayLength; i++) {
-            arrayElements[i] = sc.nextInt();
-        }
-
-        DescendingOrderArray descendingOrderArray = new DescendingOrderArray();
-        descendingOrderArray.arrayElements = arrayElements;
-
-        descendingOrderArray.printArrayElements();
-
-        descendingOrderArray.printDescendingOrder();
-
-        sc.close();
-    }
+	}
 }
