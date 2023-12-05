@@ -18,7 +18,7 @@ public class PrimeNumber {
 	}
 	
 	boolean isPrime() {
-		for (int i = 2; i <= Math.sqrt(inputNumber); i++) {
+		for (int i = 2; i <= inputNumber/2; i++) {
 			if (inputNumber % i == 0) {
 				return false;
 			}
