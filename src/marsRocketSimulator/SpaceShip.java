@@ -2,7 +2,7 @@ package marsRocketSimulator;
 
 public interface SpaceShip {
 	
-	//defining the common methods for space rockets R1 & R2
+	//defining the common methods
 
 	public boolean launch();
 
@@ -10,6 +10,6 @@ public interface SpaceShip {
 
 	public boolean canCarry(Item item);
 
-	public boolean carry(Item item);
+	public void carry(Item item);
 
 }
