@@ -33,10 +33,10 @@ public class R1 extends Rocket {
 	public boolean land() {
 		setChanceOfLandingCrash(getLandingExplosionRate() * (getCargoCarried() / getCargoLimit()));
 		if ((getChanceOfLaunchExplosion()) > randomNumber()) {
-			// launch failed
+			// landing failed
 			return land();
 		}
-		// launch successful
+		// landing successful
 		return true;
 	}
 
