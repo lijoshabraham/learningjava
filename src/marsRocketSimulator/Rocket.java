@@ -1,5 +1,7 @@
 package marsRocketSimulator;
 
+import java.util.Random;
+
 public class Rocket implements SpaceShip {
 
 	// declaring private variables common for R1 & R2 rockets
@@ -7,8 +9,8 @@ public class Rocket implements SpaceShip {
 	private int rocketWeight; // weight of rocket in kilograms
 	private int rocketMaximumWeight; // maximum rocket weight with cargo in kilograms
 	private int currentWeight; // current weight of rocket (with cargo) in kilograms
-	private int cargoCarried; // cargo carried in rocket in kilograms
-	private int cargoLimit; // cargo limit of rocket in kilograms
+	private int cargoCarried; // total weight of the cargo that the rocket is carrying in kilograms
+	private int cargoLimit; // maximum weight of cargo that the rocket can carry in kilograms
 	private double launchExplosionRate; // rate of launch explosion
 	private double landingExplosionRate; // rate of landing crash
 	private double chanceOfLaunchExplosion; // Chance of launch explosion
@@ -20,6 +22,12 @@ public class Rocket implements SpaceShip {
 		cargoLimit = 0;
 		chanceOfLaunchExplosion = 0.0;
 		chanceOfLandingCrash = 0.0;
+	}
+
+	// generating a standard range random number using java random class(range
+	// 0.0-1.0)
+	protected double randomNumber() {
+		return new Random().nextDouble();
 	}
 
 	@Override
