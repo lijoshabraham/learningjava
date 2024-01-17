@@ -5,17 +5,18 @@ import java.util.Random;
 public class Rocket implements SpaceShip {
 
 	// declaring private variables common for R1 & R2 rockets
-	private int rocketCost; // $ cost of rocket in Millions
-	private int rocketWeight; // weight of rocket in kilograms
-	private int rocketMaximumWeight; // maximum rocket weight with cargo in kilograms
-	private int currentWeight; // current weight of rocket (with cargo) in kilograms
+	private int rocketCost; 
+	private int rocketWeight; 
+	private int rocketMaximumWeight; 
+	private int currentWeight; 
 	private int cargoCarried; // total weight of the cargo that the rocket is carrying in kilograms
 	private int cargoLimit; // maximum weight of cargo that the rocket can carry in kilograms
-	private double launchExplosionRate; // rate of launch explosion
-	private double landingExplosionRate; // rate of landing crash
-	private double chanceOfLaunchExplosion; // Chance of launch explosion
-	private double chanceOfLandingCrash; // Chance of landing crash
+	private double launchExplosionRate; 
+	private double landingExplosionRate; 
+	private double chanceOfLaunchExplosion;
+	private double chanceOfLandingCrash; 
 
+	//constructor & initializing values
 	public Rocket() {
 		currentWeight = 0;
 		cargoCarried = 0;
@@ -24,9 +25,11 @@ public class Rocket implements SpaceShip {
 		chanceOfLandingCrash = 0.0;
 	}
 
-	// generating a standard range random number using java random class(range
-	// 0.0-1.0)
-	protected double randomNumber() {
+	public double randomNumber() {
+		/*double min = 1;
+	    double max = 5;
+	    Random random = new Random();
+	    return min + (max - min) * random.nextDouble();*/
 		return new Random().nextDouble();
 	}
 
@@ -41,14 +44,11 @@ public class Rocket implements SpaceShip {
 	}
 
 	@Override
-	// return true if the Item object can be carry items, false if it will exceed
-	// the weight limit.
 	public boolean canCarry(Item item) {
 		return (this.currentWeight + item.getItemWeight()) <= rocketMaximumWeight;
 	}
 
 	@Override
-	// this method takes Item object and updates the current weight of the rocket.
 	public void carry(Item item) {
 		this.currentWeight += item.getItemWeight();
 
@@ -135,5 +135,6 @@ public class Rocket implements SpaceShip {
 	public void setChanceOfLandingCrash(double chanceOfLandingCrash) {
 		this.chanceOfLandingCrash = chanceOfLandingCrash;
 	}
+
 
 }
