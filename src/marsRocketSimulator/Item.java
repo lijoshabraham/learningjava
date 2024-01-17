@@ -2,11 +2,15 @@ package marsRocketSimulator;
 
 public class Item {
 
-	private String itemName; // name of the item to be carried in the rocket
-	private int itemWeight; // weight of the item to be carried in the rocket
+	// variables
+	private String itemName;
+	private int itemWeight;
 
 	// Constructor
-	public Item() {
+	public Item(String itemName, int itemWeight) {
+		super();
+		this.itemName = itemName;
+		this.itemWeight = itemWeight;
 	}
 
 	// getter & setter methods
