@@ -8,58 +8,96 @@ import java.util.ArrayList;
 public class Simulation {
 
 	// declares loadItems method and returns an ArrayList of Item objects.
-	public ArrayList<Item> loadItems() throws FileNotFoundException {
+	public ArrayList<Item> loadItems() {
 
-		String readLine;
-
-		// declaring and initializing items ArrayList that will store Item object
+		String filePath = "src/marsRocketSimulator/phase-1.txt";
 		ArrayList<Item> items = new ArrayList<>();
+		try {
+			Scanner sc = new Scanner(new File(filePath));
 
-		// File path
-		final String filePath = "src/marsRocketSimulator/phase-1.txt";
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				Item item = null;
+				String[] split = line.split("=");
+				item = new Item(split[0], Integer.parseInt(split[1]));
+				items.add(item);
+				// System.out.println(item.getItemName() + "=" + item.getItemWeight());
+			}
 
-		// reading the file using Scanner
-		Scanner sc = new Scanner(new File(filePath));
-
-		// Reading the file line by line
-		while (sc.hasNextLine()) {
-			Item item = new Item(); // create an Item object for each item
-			readLine = sc.nextLine(); // reading the item
-			int index = readLine.indexOf("="); // finding index of "="
-			item.setItemName(readLine.substring(0, index)); // extracting the name of item
-			item.setItemWeight(Integer.parseInt(readLine.substring(index + 1))); // extracting the weight of item
-			items.add(item); // adding it to an ArrayList of Items
-			System.out.println(item.getItemName() + "=" + item.getItemWeight());
+		} catch (FileNotFoundException e) {
+			System.err.println("File not found. Please check the file path.");
 		}
 
-		sc.close();
-
-		// returning the ArrayList
 		return items;
 	}
 
-	// loadU1 method
-	ArrayList<R1> loadU1(ArrayList<Item> items) {
-		ArrayList<R1> r1Rockets = new ArrayList<>(); // Initialize ArrayList to store fully loaded R1 rockets
-		R1 rocket = new R1(); // creating a new r1 rocket
-		int itemCounter; // keep track of the current item in the list.
+	// loadU1 method takes an ArrayList of Items as input to fill the R1 rocket
+	ArrayList<Rocket> loadU1(ArrayList<Item> items) {
+		ArrayList<Rocket> rockets = new ArrayList<>();
+		int itemCounter = 0;
+		int numberOfRockets = 0;
 
-		// System.out.println("\nU1 Rocket weight = " + r.weight + "; maxWeight = " +
-		// r.maxWeight);
+		while (itemCounter < items.size()) {
+			Rocket rocket = new R1();
 
-		for (itemCounter = 0; itemCounter < items.size(); itemCounter++) {
-
-			// check if this rocket can carry items
-			if (rocket.canCarry(items.get(itemCounter))) {
-				r1Rockets.add(rocket); // adding the fully loaded rocket to the r1Rocket list
-
-				R1 anotherRocket = new R1(); // creating another rocket after filling first with as many items possible
-
+			while (itemCounter < items.size() && rocket.canCarry(items.get(itemCounter))) {
+				rocket.carry(items.get(itemCounter));
+				itemCounter++;
 			}
-			System.out.println("Rocket loaded & Current weight: " + rocket.getCurrentWeight());
+
+			rockets.add(rocket);
+			rocket = new R1();
+			numberOfRockets++;
+		}
+		//System.out.println("Number of R1 Rockets needed to fill all items: " + numberOfRockets + " Rockets");
+
+		return rockets;
+	}
+
+	// loadU2 method takes an ArrayList of Items as input to fill the R2 rocket
+	ArrayList<Rocket> loadU2(ArrayList<Item> items) {
+		ArrayList<Rocket> rockets = new ArrayList<>();
+		int itemCounter = 0;
+		int numberOfRockets = 0;
+
+		while (itemCounter < items.size()) {
+			Rocket rocket = new R2();
+
+			while (itemCounter < items.size() && rocket.canCarry(items.get(itemCounter))) {
+				rocket.carry(items.get(itemCounter));
+				itemCounter++;
+			}
+
+			rockets.add(rocket);
+			rocket = new R2();
+			numberOfRockets++;
+		}
+		/*
+		 * System.out.println("Number of R2 Rockets needed to fill all items: " +
+		 * numberOfRockets + " Rockets");
+		 * System.out.println("------------------------------------------------");
+		 */
+
+		return rockets;
+	}
+
+	public int runSimulation(ArrayList<Rocket> rockets) {
+		int totalBudget = 0;
+
+		for (int rocketIndex = 0; rocketIndex < rockets.size(); rocketIndex++) {
+			Rocket rocket = rockets.get(rocketIndex);
+
+			do {
+				if (rocket instanceof R1) {
+					rocket = new R1();
+				} else {
+					rocket = new R2();
+				}
+				totalBudget += rocket.getRocketCost();
+			} while (!(rocket.launch() && rocket.land()));
 		}
 
-		return r1Rockets; // returning ArrayList of R1 rocket that are fully loaded.
+		return totalBudget;
 	}
 
 }
